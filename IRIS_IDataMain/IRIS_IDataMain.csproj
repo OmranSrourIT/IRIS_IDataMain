@@ -51,10 +51,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Interop.iDataIrisAxLib">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Iris ID\iData Iris SDK\SDK\Interop.iDataIrisAxLib.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -175,6 +171,7 @@
     <Compile Include="configrationClass\Constants.cs" />
     <Compile Include="configrationClass\GetImageBmp.cs" />
     <Compile Include="configrationClass\Helper.cs" />
+    <Compile Include="configrationClass\Logger.cs" />
     <Compile Include="configrationClass\ResponseImage.cs" />
     <Compile Include="Controllers\IrisMethods.cs" />
     <Compile Include="Controllers\ImageHelper.cs" />
@@ -268,6 +265,17 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="iDataIrisAxLib">
+      <Guid>{83B84AC6-A9D3-4A07-935E-309C81699772}</Guid>
+      <VersionMajor>3</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

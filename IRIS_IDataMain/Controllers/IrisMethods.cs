@@ -1,10 +1,10 @@
 ﻿
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using iDataIrisAxLib;
-
-
+using IRIS_IDataMain.configrationClass;
 
 namespace IRIS_IDataMain.Controllers
 {
@@ -18,28 +18,40 @@ namespace IRIS_IDataMain.Controllers
 		//      int ProcessedImageHeight;
 		public int checkQulity(string imageBase64String)
 		{
-			byte[] imageBytes = Convert.FromBase64String(imageBase64String);
+			int iResult = 0;
+			int quality = 0;
 
-			object tmpImageLift;
+			try
+            {
+				byte[] imageBytes = Convert.FromBase64String(imageBase64String);
 
-			int width = 640;
-			int height = 480;
+				object tmpImageLift;
 
-
-			_iDataIris.BmpToRaw(imageBytes, imageBytes.Length, out tmpImageLift, out width, out height);
-
-			imageBytes = tmpImageLift as byte[];
-
-
-			int iResult;
-			int quality;
+				int width = 640;
+				int height = 480;
 
 
-			IrisImageQualityInfo irisImageQualityInfo;
-			iResult = _iDataIris.GetImageQuality(Constants.IRIS_IMAGE_RECT, imageBytes, width, height, out quality,
-									   out irisImageQualityInfo);
+				_iDataIris.BmpToRaw(imageBytes, imageBytes.Length, out tmpImageLift, out width, out height);
 
-			Console.WriteLine(@"Quality Score Lift: " + quality);
+				imageBytes = tmpImageLift as byte[];
+
+
+				IrisImageQualityInfo irisImageQualityInfo;
+				iResult = _iDataIris.GetImageQuality(Constants.IRIS_IMAGE_RECT, imageBytes, width, height, out quality,
+										   out irisImageQualityInfo);
+
+				Console.WriteLine(@"Quality Score Lift: " + quality);
+
+			}
+			catch(Exception ex)
+            {
+				var stackTrace = new StackTrace(ex, true);
+				var frame = stackTrace.GetFrame(0);
+				var line = frame.GetFileLineNumber();
+				Logger.WriteLog("ErrorMessage" + Environment.NewLine + ex.Message + Environment.NewLine + stackTrace + "Line" + line);
+			
+			}
+			
 
 			return quality;
 
@@ -127,8 +139,13 @@ namespace IRIS_IDataMain.Controllers
 			}
             catch (Exception ex)
             {
+				var stackTrace = new StackTrace(ex, true);
+				var frame = stackTrace.GetFrame(0);
+				var line = frame.GetFileLineNumber();
+				Logger.WriteLog("ErrorMessage" + Environment.NewLine + ex.Message + Environment.NewLine + stackTrace + "Line" + line);
 
-            }
+				return false;
+			}
 			return true;
 		}
 	}

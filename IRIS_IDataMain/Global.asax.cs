@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IRIS_IDataMain.configrationClass;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,8 @@ namespace IRIS_IDataMain
     {
         protected void Application_Start()
         {
+
+            //Logger.WriteLog("تم تشغيل خدمة الويب");
             var config = GlobalConfiguration.Configuration;
             config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
             AreaRegistration.RegisterAllAreas();
